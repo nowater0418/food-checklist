@@ -7,91 +7,88 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- 顶部 -->
-  <header class="page-header">
-    <div class="header-row">
-      <div>
-        <h1 class="title" data-i18n="title">吃货清单</h1>
-        <p class="subtitle" data-i18n="subtitle">
-          记录每一口好吃的，不辜负美食～
-        </p>
+
+<header class="page-header">
+  <div class="header-row">
+    <div>
+      <h1 class="title" data-i18n="title">吃货清单</h1>
+      <p class="subtitle" data-i18n="subtitle">记录每一口好吃的，不辜负美食～</p>
+    </div>
+
+    <div class="header-actions">
+      <button id="langToggle" class="icon-btn">EN</button>
+      <button id="themeToggle" class="icon-btn">🌙</button>
+    </div>
+  </div>
+</header>
+
+<section class="filters">
+  <button class="filter-btn active" data-filter="all" data-i18n="filter_all">全部</button>
+  <button class="filter-btn" data-filter="status:unvisited" data-i18n="filter_unvisited">未打卡</button>
+  <button class="filter-btn" data-filter="status:visited" data-i18n="filter_visited">已打卡</button>
+  <button class="filter-btn" data-filter="type:home" data-i18n="filter_home">家常菜</button>
+  <button class="filter-btn" data-filter="type:snack" data-i18n="filter_snack">小吃</button>
+  <button class="filter-btn" data-filter="type:dessert" data-i18n="filter_dessert">甜品</button>
+</section>
+
+<main class="container">
+  <!-- 表单 -->
+  <section class="card">
+    <h2 class="section-title" data-i18n="add_food">新增美食</h2>
+
+    <form id="foodForm" class="food-form">
+      <div class="field">
+        <label data-i18n="food_name">美食名称 *</label>
+        <input id="name" type="text" />
+        <div id="nameHint" class="hint"></div>
       </div>
 
-      <!-- 语言切换 -->
-      <button id="langToggle" class="lang-btn">EN</button>
-    </div>
-  </header>
+      <div class="field">
+        <span class="label" data-i18n="type">类型</span>
+        <div class="radio-row">
+          <label><input type="radio" name="type" value="restaurant" checked /> <span data-i18n="restaurant">餐厅菜</span></label>
+          <label><input type="radio" name="type" value="home" /> <span data-i18n="home">家常菜</span></label>
+          <label><input type="radio" name="type" value="snack" /> <span data-i18n="snack">小吃</span></label>
+          <label><input type="radio" name="type" value="dessert" /> <span data-i18n="dessert">甜品</span></label>
+        </div>
+      </div>
 
-  <!-- 筛选区 -->
-  <section class="filters">
-    <button class="filter-btn active" data-filter="all" data-i18n="filter_all">全部</button>
-    <button class="filter-btn" data-filter="status:unvisited" data-i18n="filter_unvisited">未打卡</button>
-    <button class="filter-btn" data-filter="status:visited" data-i18n="filter_visited">已打卡</button>
-    <button class="filter-btn" data-filter="type:home" data-i18n="filter_home">家常菜</button>
-    <button class="filter-btn" data-filter="type:snack" data-i18n="filter_snack">小吃</button>
-    <button class="filter-btn" data-filter="type:dessert" data-i18n="filter_dessert">甜品</button>
+      <div class="field">
+        <span class="label" data-i18n="rating">推荐度</span>
+        <div class="radio-row">
+          <label><input type="radio" name="rating" value="1" />1</label>
+          <label><input type="radio" name="rating" value="2" />2</label>
+          <label><input type="radio" name="rating" value="3" checked />3</label>
+          <label><input type="radio" name="rating" value="4" />4</label>
+          <label><input type="radio" name="rating" value="5" />5</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label data-i18n="note">备注</label>
+        <textarea id="note" rows="3" data-i18n-placeholder="note_placeholder"></textarea>
+      </div>
+
+      <div class="field">
+        <span class="label" data-i18n="status">打卡状态</span>
+        <div class="radio-row">
+          <label><input type="radio" name="status" value="unvisited" checked /> <span data-i18n="unvisited">未打卡</span></label>
+          <label><input type="radio" name="status" value="visited" /> <span data-i18n="visited">已打卡</span></label>
+        </div>
+      </div>
+
+      <button class="primary-btn" type="submit" data-i18n="save">保存</button>
+    </form>
   </section>
 
-  <main class="container">
-    <!-- 表单 -->
-    <section class="card">
-      <h2 class="section-title" data-i18n="add_food">新增美食</h2>
+  <!-- 列表 -->
+  <section class="card">
+    <h2 class="section-title" data-i18n="list">美食列表</h2>
+    <ul id="foodList" class="food-list"></ul>
+    <div id="emptyState" class="empty" data-i18n="empty">暂无记录</div>
+  </section>
+</main>
 
-      <form id="foodForm" class="food-form">
-        <div class="field">
-          <label data-i18n="food_name">美食名称 *</label>
-          <input id="name" type="text" />
-          <div class="hint" id="nameHint"></div>
-        </div>
-
-        <div class="field">
-          <span class="label" data-i18n="type">类型</span>
-          <div class="radio-row">
-            <label><input type="radio" name="type" value="restaurant" checked /> <span data-i18n="restaurant">餐厅菜</span></label>
-            <label><input type="radio" name="type" value="home" /> <span data-i18n="home">家常菜</span></label>
-            <label><input type="radio" name="type" value="snack" /> <span data-i18n="snack">小吃</span></label>
-            <label><input type="radio" name="type" value="dessert" /> <span data-i18n="dessert">甜品</span></label>
-          </div>
-        </div>
-
-        <div class="field">
-          <span class="label" data-i18n="rating">推荐度</span>
-          <div class="radio-row">
-            <label><input type="radio" name="rating" value="1" />1</label>
-            <label><input type="radio" name="rating" value="2" />2</label>
-            <label><input type="radio" name="rating" value="3" checked />3</label>
-            <label><input type="radio" name="rating" value="4" />4</label>
-            <label><input type="radio" name="rating" value="5" />5</label>
-          </div>
-        </div>
-
-        <div class="field">
-          <label data-i18n="note">备注</label>
-          <textarea id="note" rows="3" data-i18n-placeholder="note_placeholder"></textarea>
-        </div>
-
-        <div class="field">
-          <span class="label" data-i18n="status">打卡状态</span>
-          <div class="radio-row">
-            <label><input type="radio" name="status" value="unvisited" checked /> <span data-i18n="unvisited">未打卡</span></label>
-            <label><input type="radio" name="status" value="visited" /> <span data-i18n="visited">已打卡</span></label>
-          </div>
-        </div>
-
-        <button class="primary-btn" type="submit" data-i18n="save">保存</button>
-      </form>
-    </section>
-
-    <!-- 列表 -->
-    <section class="card">
-      <h2 class="section-title" data-i18n="list">美食列表</h2>
-      <ul id="foodList" class="food-list"></ul>
-      <div id="emptyState" class="empty" data-i18n="empty">
-        暂无记录
-      </div>
-    </section>
-  </main>
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
