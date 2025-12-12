@@ -1,11 +1,12 @@
+/* ========= 主题 ========= */
 :root {
   --bg: #f8fbfd;
   --card: #ffffff;
-  --primary: #38bdf8;   /* 清新天空蓝 */
-  --accent: #34d399;   /* 清新绿 */
   --text: #0f172a;
   --muted: #64748b;
   --border: #e2e8f0;
+  --primary: #38bdf8;
+  --accent: #34d399;
 
   --restaurant: #e0f2fe;
   --home: #dcfce7;
@@ -13,13 +14,26 @@
   --dessert: #ffe4e6;
 }
 
-body {
-  margin: 0;
-  background: var(--bg);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  color: var(--text);
+[data-theme="dark"] {
+  --bg: #0f172a;
+  --card: #020617;
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --border: #1e293b;
 }
 
+/* ========= 全局 ========= */
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s ease;
+}
+
+/* ========= Header ========= */
 .page-header {
   max-width: 1100px;
   margin: 24px auto;
@@ -32,37 +46,39 @@ body {
   align-items: center;
 }
 
-.title {
-  margin: 0;
-  font-size: 30px;
-}
+.header-actions { display: flex; gap: 10px; }
 
-.subtitle {
-  margin-top: 6px;
-  color: var(--muted);
-}
-
-.lang-btn {
+.icon-btn {
   border: 1px solid var(--border);
-  background: white;
+  background: var(--card);
   padding: 8px 12px;
   border-radius: 999px;
   cursor: pointer;
-  font-weight: 600;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
 }
 
+.icon-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+}
+
+.icon-btn:active {
+  transform: scale(0.95);
+}
+
+/* ========= Filters ========= */
 .filters {
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 16px;
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  padding: 0 16px;
-  max-width: 1100px;
-  margin: auto;
 }
 
 .filter-btn {
   border: 1px solid var(--border);
-  background: white;
+  background: var(--card);
   padding: 8px 14px;
   border-radius: 999px;
   cursor: pointer;
@@ -73,6 +89,7 @@ body {
   color: white;
 }
 
+/* ========= Layout ========= */
 .container {
   max-width: 1100px;
   margin: 20px auto;
@@ -84,13 +101,93 @@ body {
 
 .card {
   background: var(--card);
-  border-radius: 16px;
+  border-radius: 18px;
   padding: 16px;
   border: 1px solid var(--border);
 }
 
+/* ========= 表单 ========= */
+.food-form { display: grid; gap: 12px; }
+
+input, textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.primary-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  padding: 10px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.primary-btn:active {
+  transform: scale(0.96);
+}
+
+/* ========= 列表（App 核心） ========= */
+.food-list { display: grid; gap: 12px; }
+
+.item {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  animation: fadeIn 0.25s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.18);
+}
+
+.item.visited {
+  border-left: 6px solid var(--accent);
+}
+
+.status {
+  cursor: pointer;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  transition: transform 0.15s ease;
+}
+
+.status:active {
+  transform: scale(0.95);
+}
+
+.delete-btn {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.delete-btn:hover { color: #ef4444; }
+
+.empty {
+  text-align: center;
+  padding: 32px;
+  color: var(--muted);
+  border: 1px dashed var(--border);
+  border-radius: 16px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
 @media (max-width: 860px) {
-  .container {
-    grid-template-columns: 1fr;
-  }
+  .container { grid-template-columns: 1fr; }
 }
